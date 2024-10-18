@@ -22,27 +22,3 @@ class BaseRepository:
                 yield db
             except:
                 db.rollback()
-    
-class UserRepository(ABC):
-    @abstractmethod
-    async def get_all(self):
-        raise NotImplementedError()
-    
-class UserRepositoriesDB(UserRepository):
-    def __init__(self, session: Session) -> None:
-        self.base = BaseRepository(session)
-
-    async def get_all(self):
-        with self.base._get_session() as conn:
-            conn
-        return await super().get_all()
-    
-    async def get_by_id(self, id: int):
-        return None
-
-def new_user_repo(session: Session) -> UserRepository:
-    return UserRepositoriesDB(session)
-
-use = new_user_repo(session=Session())
-
-use
