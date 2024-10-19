@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from server.routes import router
 
 app = FastAPI()
 
@@ -16,6 +17,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def get_app():
-    return {"message": "ok"}
+app.include_router(router)
